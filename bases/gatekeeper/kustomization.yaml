@@ -1,4 +1,4 @@
 ---
 resources:
 - gatekeeper.yaml
-- ConstraintTemplates/
+- constraintTemplates/
