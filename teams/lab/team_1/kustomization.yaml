@@ -11,6 +11,12 @@ patches:
     - op: replace
       path: /metadata/name
       value: team-1
+- target:
+    kind: K8sPSPReadOnlyRootFilesystem
+  patch: |-
+    - op: replace
+      path: /spec/match/namespaces
+      value: [ team-1 ]
 
 patchesStrategicMerge:
 - patch-flux.yaml
