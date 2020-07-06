@@ -17,6 +17,12 @@ patches:
     - op: replace
       path: /spec/match/namespaces
       value: [ team-1 ]
+- target:
+    kind: K8sPSPCapabilities
+  patch: |-
+    - op: replace
+      path: /spec/match/namespaces
+      value: [ team-1 ]
 
 patchesStrategicMerge:
 - patch-flux.yaml
