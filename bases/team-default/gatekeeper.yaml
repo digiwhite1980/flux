@@ -2,6 +2,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPReadOnlyRootFilesystem
 metadata:
   name: team-1-readonlyrootfilesystem
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -13,6 +15,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPCapabilities
 metadata:
   name: team-1-capabilities
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -22,3 +26,86 @@ spec:
   parameters:
     allowedCapabilities: [ "NET_ADMIN" ]
     requiredDropCapabilities: [ "MKNOD", "SETGID", "SETUID" ]
+---
+# HostPID and HostIPC
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPHostNamespace
+metadata:
+  name: psp-host-namespace
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: [ PLACEHOLDER ]
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPHostNetworkingPorts
+metadata:
+  name: psp-host-network-ports
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: [ PLACEHOLDER ]
+  parameters:
+    hostNetwork: false
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPAllowedUsers
+metadata:
+  name: psp-pods-allowed-user-ranges
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: [ PLACEHOLDER ]
+  parameters:
+    runAsUser:
+      rule: MustRunAs # MustRunAsNonRoot # RunAsAny 
+      ranges:
+        - min: 1
+          max: 65536
+    runAsGroup:
+      rule: MustRunAs # MayRunAs # RunAsAny 
+      ranges:
+        - min: 1
+          max: 65536
+    supplementalGroups:
+      rule: MustRunAs # MayRunAs # RunAsAny 
+      ranges:
+        - min: 1
+          max: 65536
+    fsGroup:
+      rule: MustRunAs # MayRunAs # RunAsAny 
+      ranges:
+        - min: 1
+          max: 65536
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPAllowPrivilegeEscalationContainer
+metadata:
+  name: psp-allow-privilege-escalation-container
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: [ PLACEHOLDER ]
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPPrivilegedContainer
+metadata:
+  name: psp-privileged-container
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: [ PLACEHOLDER ]
+---
+  
+
+

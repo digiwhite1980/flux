@@ -11,14 +11,12 @@ patches:
     - op: replace
       path: /metadata/name
       value: team-1
+
+##############################################################
+# We target all objects with label type=gatekeeper-constraint
+##############################################################
 - target:
-    kind: K8sPSPReadOnlyRootFilesystem
-  patch: |-
-    - op: replace
-      path: /spec/match/namespaces
-      value: [ team-1 ]
-- target:
-    kind: K8sPSPCapabilities
+    labelSelector: "type=gatekeeper-constraint"
   patch: |-
     - op: replace
       path: /spec/match/namespaces
