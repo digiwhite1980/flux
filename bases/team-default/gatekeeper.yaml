@@ -31,7 +31,7 @@ spec:
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNamespace
 metadata:
-  name: psp-host-namespace
+  name: team-1-psp-host-namespace
 spec:
   match:
     kinds:
@@ -42,7 +42,7 @@ spec:
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNetworkingPorts
 metadata:
-  name: psp-host-network-ports
+  name: team-1-psp-host-network-ports
 spec:
   match:
     kinds:
@@ -55,7 +55,7 @@ spec:
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowedUsers
 metadata:
-  name: psp-pods-allowed-user-ranges
+  name: team-1-psp-pods-allowed-user-ranges
 spec:
   match:
     kinds:
@@ -87,7 +87,7 @@ spec:
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowPrivilegeEscalationContainer
 metadata:
-  name: psp-allow-privilege-escalation-container
+  name: team-1-psp-allow-privilege-escalation-container
 spec:
   match:
     kinds:
@@ -98,7 +98,7 @@ spec:
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPPrivilegedContainer
 metadata:
-  name: psp-privileged-container
+  name: team-1-psp-privileged-container
 spec:
   match:
     kinds:
