@@ -32,6 +32,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNamespace
 metadata:
   name: team-1-psp-host-namespace
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -43,6 +45,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNetworkingPorts
 metadata:
   name: team-1-psp-host-network-ports
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -56,6 +60,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowedUsers
 metadata:
   name: team-1-psp-pods-allowed-user-ranges
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -88,6 +94,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowPrivilegeEscalationContainer
 metadata:
   name: team-1-psp-allow-privilege-escalation-container
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -99,6 +107,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPPrivilegedContainer
 metadata:
   name: team-1-psp-privileged-container
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -110,6 +120,8 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPVolumeTypes
 metadata:
   name: psp-volume-types
+  labels:
+    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -127,5 +139,3 @@ spec:
     #- persistentVolumeClaim
     #- hostPath #required for allowedHostPaths
     - flexVolume #required for allowedFlexVolumes  
-
-
