@@ -5,7 +5,7 @@ metadata:
 spec:
   values:
     git:
-      url: git@github.com:rchrd/helloworld
-      path: "deployment"
+      url: git@github.com:digiwhite1980/flux
+      path: "deployments/team_1"
     allowedNamespaces:
     - team-1
