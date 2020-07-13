@@ -17,6 +17,9 @@ patches:
     - op: replace
       path: /spec/match/namespaces
       value: [ team-3 ]
+    - op: replace
+      path: /metadata/name
+      value: team-3
 
 patchesStrategicMerge:
 - patch-flux.yaml
