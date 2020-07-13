@@ -14,8 +14,10 @@ if [[ ! -x "$(command -v helm)" ]]; then
     exit 1
 fi
 
+###########################################################
+# https://github.com/fluxcd/flux/tree/master/chart/flux
+###########################################################
 helm repo add fluxcd https://charts.fluxcd.io
-
 echo ">>> Installing Flux"
 kubectl create ns flux-system || true
 helm upgrade -i flux fluxcd/flux \
@@ -23,6 +25,9 @@ helm upgrade -i flux fluxcd/flux \
 --values flux-values.yaml \
 --namespace flux-system
 
+###################################################################################
+# https://github.com/fluxcd/helm-operator/tree/master/chart/helm-operator
+###################################################################################
 echo ">>> Installing Helm Operator"
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/1.1.0/deploy/crds.yaml
 helm upgrade -i helm-operator fluxcd/helm-operator \

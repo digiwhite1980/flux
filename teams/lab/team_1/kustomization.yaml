@@ -11,10 +11,6 @@ patches:
     - op: replace
       path: /metadata/name
       value: team-1
-
-##############################################################
-# We target all objects with label type=gatekeeper-constraint
-##############################################################
 - target:
     labelSelector: "type=gatekeeper-constraint"
   patch: |-

@@ -1,3 +1,6 @@
+###########################################################
+# https://github.com/fluxcd/flux/tree/master/chart/flux
+###########################################################
 git:
   url: git@github.com:digiwhite1980/flux
   branch: master
