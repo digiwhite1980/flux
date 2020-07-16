@@ -3,3 +3,4 @@ resources:
 - gatekeeper.yaml
 - gatekeeper-syc_config.yaml
 - constraintTemplates/
+- constraints/gatekeeper-test.yaml
