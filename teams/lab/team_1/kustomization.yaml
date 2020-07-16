@@ -1,7 +1,6 @@
 resources:
   - ../../../bases/team-default
   - ../../../bases/flux
-  - ../../../bases/policies/
 
 namespace: team-1
 
@@ -12,15 +11,18 @@ patches:
     - op: replace
       path: /metadata/name
       value: team-1
-- target:
-    labelSelector: "type=gatekeeper-constraint"
-  patch: |-
     - op: replace
-      path: /spec/match/namespaces
-      value: [ team-1 ]
-    - op: replace
-      path: /metadata/name
-      value: team-1
+      path: /metadata/labels/scp.gatekeeeper	  
+      value: restricted
+#- target:
+#    labelSelector: "type=gatekeeper-constraint"
+#  patch: |-
+#    - op: replace
+#      path: /spec/match/namespaces
+#      value: [ team-1 ]
+#    - op: replace
+#      path: /metadata/name
+#      value: team-1
 
 patchesStrategicMerge:
 - patch-flux.yaml

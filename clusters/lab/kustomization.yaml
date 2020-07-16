@@ -5,11 +5,11 @@ resources:
   - ../../bases/rbac
   - ../../bases/gatekeeper
 
-configMapGenerator:
-- name: istio
-  namespace: opa
-  files:
-  - policies/istio.rego
+#configMapGenerator:
+#- name: istio
+#  namespace: opa
+#  files:
+#  - policies/istio.rego
 
 generatorOptions:
   disableNameSuffixHash: true
