@@ -17,5 +17,5 @@ spec:
       - iscp-defender
       - istio-system
   parameters:
-    nsLabel: restricted
+    nsLabel: "restricted"
 ---
