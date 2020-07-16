@@ -12,7 +12,7 @@ patches:
       path: /metadata/name
       value: team-1
     - op: replace
-      path: /metadata/labels/scp.gatekeeper	  
+      path: /metadata/labels/scp.gatekeeeper	  
       value: restricted
 #- target:
 #    labelSelector: "type=gatekeeper-constraint"
