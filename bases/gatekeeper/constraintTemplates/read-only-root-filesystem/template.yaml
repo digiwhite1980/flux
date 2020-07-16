@@ -20,6 +20,7 @@ spec:
         violation[{"msg": msg, "details": {}}] {
             #data.inventory.cluster.v1.Namespace["team-1"].labels["scp.gatekeeper"] == input.parameters.nsLabel
             input.parameters.nsLabel == "restricted"
+            input.review.namespace == "team-1"
             c := input_containers[_]
             input_read_only_root_fs(c)
             msg := sprintf("only read-only root filesystem container is allowed: %v", [c.name])
