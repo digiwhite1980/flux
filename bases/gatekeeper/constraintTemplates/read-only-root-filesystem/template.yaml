@@ -17,7 +17,7 @@ spec:
       rego: |
         package k8spspreadonlyrootfilesystem
 
-        data.inventory.cluster["v1"].Namespace[input.review.namespace] == input.parameters.nsLabel
+        data.inventory.cluster.v1.Namespace[input.review.namespace] == input.parameters.nsLabel
 
         violation[{"msg": msg, "details": {}}] {
             c := input_containers[_]
