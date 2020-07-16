@@ -9,7 +9,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPCapabilities
@@ -22,7 +28,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
   parameters:
     allowedCapabilities: [ "NET_ADMIN" ]
     requiredDropCapabilities: [ "MKNOD", "SETGID", "SETUID" ]
@@ -39,7 +51,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNetworkingPorts
@@ -52,7 +70,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
   parameters:
     hostNetwork: false
 ---
@@ -67,7 +91,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
   parameters:
     runAsUser:
       rule: MustRunAs # MustRunAsNonRoot # RunAsAny 
@@ -101,7 +131,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPPrivilegedContainer
@@ -114,7 +150,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPVolumeTypes
@@ -127,7 +169,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    namespaces: [ PLACEHOLDER ]
+    excludedNamespaces:
+      - kube-system
+      - kube-public
+      - kube-node-lease
+      - default
+      - iscp-defender
+      - istio-system
   parameters:
     volumes:
     # - "*" # * may be used to allow all volume types

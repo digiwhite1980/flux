@@ -1,11 +1,11 @@
 ---
 resources:
-#- gatekeeper-policies.yaml
-- AllowPrivilegeEscalationContainer.yaml
-- AllowedUsers.yaml
-- Capabilities.yaml
-- HostNamespace.yaml
-- HostNetworkingPorts.yaml
-- PrivilegedContainer.yaml
-- ReadOnlyRootFilesystem.yaml
-- VolumeTypes.yaml
+- gatekeeper-restriced.yaml
+#- AllowPrivilegeEscalationContainer.yaml
+#- AllowedUsers.yaml
+#- Capabilities.yaml
+#- HostNamespace.yaml
+#- HostNetworkingPorts.yaml
+#- PrivilegedContainer.yaml
+#- ReadOnlyRootFilesystem.yaml
+#- VolumeTypes.yaml

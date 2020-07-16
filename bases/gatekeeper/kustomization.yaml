@@ -1,5 +1,5 @@
 ---
 resources:
 - gatekeeper.yaml
-- gatekeeeper-syc_config.yaml
+- gatekeeper-syc_config.yaml
 - constraintTemplates/
