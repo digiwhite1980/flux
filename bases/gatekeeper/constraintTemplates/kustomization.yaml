@@ -15,4 +15,3 @@ resources:
   - selinux
   - users
   - volumes
-  - constraints/gatekeeper-test.yaml
