@@ -3,7 +3,7 @@ resources:
   #- ../../bases/open-policy-agent
   #- ../../bases/cert-manager
   - ../../bases/rbac
-  - ../../bases/gatekeeper
+  #- ../../bases/gatekeeper
 
 #configMapGenerator:
 #- name: istio
