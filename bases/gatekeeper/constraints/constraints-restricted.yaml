@@ -2,8 +2,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPReadOnlyRootFilesystem
 metadata:
   name: restricted-readonlyrootfilesystem
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -16,8 +14,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPCapabilities
 metadata:
   name: restricted-capabilities
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -33,8 +29,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNamespace
 metadata:
   name: restricted-psp-host-namespace
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -47,8 +41,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNetworkingPorts
 metadata:
   name: restricted-psp-host-network-ports
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -63,8 +55,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowedUsers
 metadata:
   name: restricted-psp-pods-allowed-user-ranges
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -98,8 +88,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowPrivilegeEscalationContainer
 metadata:
   name: restricted-psp-allow-privilege-escalation-container
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -112,8 +100,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPPrivilegedContainer
 metadata:
   name: restricted-psp-privileged-container
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
@@ -126,8 +112,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPVolumeTypes
 metadata:
   name: restricted-psp-volume-types
-  labels:
-    type: gatekeeper-constraint
 spec:
   match:
     kinds:
