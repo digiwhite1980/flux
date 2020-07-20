@@ -117,13 +117,6 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
   parameters:
     volumes:
     # - "*" # * may be used to allow all volume types
