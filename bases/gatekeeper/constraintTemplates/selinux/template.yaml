@@ -11,6 +11,8 @@ spec:
         # Schema for the `parameters` field
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             allowedSELinuxOptions:
               type: array
               items:
@@ -31,12 +33,14 @@ spec:
 
         # Disallow top level custom SELinux options
         violation[{"msg": msg, "details": {}}] {
+            data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel          
             has_field(input.review.object.spec.securityContext, "seLinuxOptions")
             not input_seLinuxOptions_allowed(input.review.object.spec.securityContext.seLinuxOptions)
             msg := sprintf("SELinux options is not allowed, pod: %v. Allowed options: %v", [input.review.object.metadata.name, input.parameters.allowedSELinuxOptions])
         }
         # Disallow container level custom SELinux options
         violation[{"msg": msg, "details": {}}] {
+            data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
             c := input_security_context[_]
             has_field(c.securityContext, "seLinuxOptions")
             not input_seLinuxOptions_allowed(c.securityContext.seLinuxOptions)

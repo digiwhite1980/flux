@@ -11,6 +11,8 @@ spec:
         # Schema for the `parameters` field
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             allowedCapabilities:
               type: array
               items:
@@ -25,26 +27,28 @@ spec:
         package capabilities
 
         violation[{"msg": msg}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           container := input.review.object.spec.containers[_]
           has_disallowed_capabilities(container)
           msg := sprintf("container <%v> has a disallowed capability. Allowed capabilities are %v", [container.name, get_default(input.parameters, "allowedCapabilities", "NONE")])
         }
 
         violation[{"msg": msg}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           container := input.review.object.spec.containers[_]
           missing_drop_capabilities(container)
           msg := sprintf("container <%v> is not dropping all required capabilities. Container must drop all of %v", [container.name, input.parameters.requiredDropCapabilities])
         }
 
-
-
         violation[{"msg": msg}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           container := input.review.object.spec.initContainers[_]
           has_disallowed_capabilities(container)
           msg := sprintf("init container <%v> has a disallowed capability. Allowed capabilities are %v", [container.name, get_default(input.parameters, "allowedCapabilities", "NONE")])
         }
 
         violation[{"msg": msg}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           container := input.review.object.spec.initContainers[_]
           missing_drop_capabilities(container)
           msg := sprintf("init container <%v> is not dropping all required capabilities. Container must drop all of %v", [container.name, input.parameters.requiredDropCapabilities])

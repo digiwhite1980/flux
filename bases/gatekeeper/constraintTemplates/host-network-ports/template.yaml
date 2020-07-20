@@ -11,6 +11,8 @@ spec:
         # Schema for the `parameters` field
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             hostNetwork:
               type: boolean
             min:
@@ -23,6 +25,7 @@ spec:
         package k8spsphostnetworkingports
 
         violation[{"msg": msg, "details": {}}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           input_share_hostnetwork(input.review.object)
           msg := sprintf("The specified hostNetwork and hostPort are not allowed, pod: %v. Allowed values: %v", [input.review.object.metadata.name, input.parameters])
         }

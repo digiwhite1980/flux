@@ -11,6 +11,8 @@ spec:
         # Schema for the `parameters` field
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             allowedProfiles:
               type: array
               items:
@@ -21,6 +23,7 @@ spec:
         package k8spspseccomp
 
         violation[{"msg": msg, "details": {}}] {
+            data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
             metadata := input.review.object.metadata
             not input_wildcard_allowed(metadata)
             container := input_containers[_]

@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPReadOnlyRootFilesystem
 metadata:
-  name: team-1-readonlyrootfilesystem
+  name: restricted-readonlyrootfilesystem
   labels:
     type: gatekeeper-constraint
 spec:
@@ -9,18 +9,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
+  parameters:
+    nsLabel: "restricted"
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPCapabilities
 metadata:
-  name: team-1-capabilities
+  name: restricted-capabilities
   labels:
     type: gatekeeper-constraint
 spec:
@@ -28,22 +23,16 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
   parameters:
     allowedCapabilities: [ "NET_ADMIN" ]
     requiredDropCapabilities: [ "MKNOD", "SETGID", "SETUID" ]
+    nsLabel: "restricted"
 ---
 # HostPID and HostIPC
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNamespace
 metadata:
-  name: team-1-psp-host-namespace
+  name: restricted-psp-host-namespace
   labels:
     type: gatekeeper-constraint
 spec:
@@ -51,18 +40,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
+  parameters:
+    nsLabel: "restricted"        
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPHostNetworkingPorts
 metadata:
-  name: team-1-psp-host-network-ports
+  name: restricted-psp-host-network-ports
   labels:
     type: gatekeeper-constraint
 spec:
@@ -70,20 +54,15 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
   parameters:
     hostNetwork: false
+  parameters:
+    nsLabel: "restricted"       
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowedUsers
 metadata:
-  name: team-1-psp-pods-allowed-user-ranges
+  name: restricted-psp-pods-allowed-user-ranges
   labels:
     type: gatekeeper-constraint
 spec:
@@ -91,13 +70,6 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
   parameters:
     runAsUser:
       rule: MustRunAs # MustRunAsNonRoot # RunAsAny 
@@ -119,11 +91,13 @@ spec:
       ranges:
         - min: 1
           max: 65536
+  parameters:
+    nsLabel: "restricted"            
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPAllowPrivilegeEscalationContainer
 metadata:
-  name: team-1-psp-allow-privilege-escalation-container
+  name: restricted-psp-allow-privilege-escalation-container
   labels:
     type: gatekeeper-constraint
 spec:
@@ -131,18 +105,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
+  parameters:
+    nsLabel: "restricted"       
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPPrivilegedContainer
 metadata:
-  name: team-1-psp-privileged-container
+  name: restricted-psp-privileged-container
   labels:
     type: gatekeeper-constraint
 spec:
@@ -150,18 +119,13 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    excludedNamespaces:
-      - kube-system
-      - kube-public
-      - kube-node-lease
-      - default
-      - iscp-defender
-      - istio-system
+  parameters:
+    nsLabel: "restricted" 
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPVolumeTypes
 metadata:
-  name: psp-volume-types
+  name: restricted-psp-volume-types
   labels:
     type: gatekeeper-constraint
 spec:
@@ -186,4 +150,6 @@ spec:
     - downwardAPI
     #- persistentVolumeClaim
     #- hostPath #required for allowedHostPaths
-    - flexVolume #required for allowedFlexVolumes  
+    - flexVolume #required for allowedFlexVolumes
+  parameters:
+    nsLabel: "restricted"     

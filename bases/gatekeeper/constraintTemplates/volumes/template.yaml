@@ -11,6 +11,8 @@ spec:
         # Schema for the `parameters` field
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             volumes:
               type: array
               items:
@@ -21,6 +23,7 @@ spec:
         package k8spspvolumetypes
 
         violation[{"msg": msg, "details": {}}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           volume_fields := {x | input.review.object.spec.volumes[_][x]; x != "name"}
           not input_volume_type_allowed(volume_fields)
           msg := sprintf("One of the volume types %v is not allowed, pod: %v. Allowed volume types: %v", [volume_fields, input.review.object.metadata.name, input.parameters.volumes])

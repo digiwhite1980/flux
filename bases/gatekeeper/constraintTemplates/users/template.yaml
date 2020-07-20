@@ -10,6 +10,8 @@ spec:
       validation:
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             runAsUser:
               type: object
               properties:
@@ -72,6 +74,7 @@ spec:
         package k8spspallowedusers
 
         violation[{"msg": msg}] {
+          data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
           fields := ["runAsUser", "runAsGroup", "supplementalGroups", "fsGroup"]
           field := fields[_]
           container := input_containers[_]

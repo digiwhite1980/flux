@@ -11,6 +11,8 @@ spec:
         # Schema for the `parameters` field
         openAPIV3Schema:
           properties:
+            nsLabel:
+              type: string          
             forbiddenSysctls:
               type: array
               items:
@@ -21,6 +23,7 @@ spec:
         package k8spspforbiddensysctls
 
         violation[{"msg": msg, "details": {}}] {
+            data.inventory.cluster.v1.Namespace[input.review.namespace].metadata.labels["scp.gatekeeper"] == input.parameters.nsLabel
             sysctls := {x | x = input.review.object.spec.securityContext.sysctls[_][name]}
             count(sysctls) > 0
             input_sysctls(sysctls)
