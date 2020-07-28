@@ -47,4 +47,10 @@ do
 done
 echo ">>> Github deploy key is ready"
 
+echo ">>> installing bitnami sealdSecret"
+curl -o kubeseal -L https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.4/kubeseal-darwin-amd64
+kubectl create namespace sealed-secrets
+mkdir sealed-secrets
+openssl req -x509 -nodes -newkey rsa:4096 -keyout sealed-secrets/sealed-secret.key -out sealed-secrets/sealed-secret.crt -subj "/CN=sealed-secret/O=sealed-secret"
+
 echo ">>> Cluster bootstrap done!"
