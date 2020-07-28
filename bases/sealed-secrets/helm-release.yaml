@@ -5,7 +5,7 @@ metadata:
   name: sealed-secrets
 spec:
   chart:
-    repository: https://raw.githubusercontent.com/helm/charts/master/stable/sealed-secrets
+    repository: https://kubernetes-charts.storage.googleapis.com
     name: sealed-secrets
     version: "v0.12.4"
   values:  # https://hub.helm.sh/charts/fluxcd/flux
