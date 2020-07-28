@@ -7,7 +7,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: sealed-secrets
-    version: "v0.12.4"
+    version: 1.10.1
   values:  # https://hub.helm.sh/charts/fluxcd/flux
     namespace: sealed-secrets
     secretName: ss-default
