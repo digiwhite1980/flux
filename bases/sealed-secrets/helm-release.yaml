@@ -10,4 +10,3 @@ spec:
     version: 1.10.1
   values:  # https://hub.helm.sh/charts/fluxcd/flux
     namespace: sealed-secrets
-    secretName: sealed-secrets-key
