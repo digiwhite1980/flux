@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: sealed-secrets
   labels:
-    sealedsecrets.bitnami.com/ss-default: active
+    sealedsecrets.bitnami.com/sealed-secrets-key: active
 spec:
   finalizers:
   - kubernetes
