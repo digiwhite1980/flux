@@ -52,5 +52,7 @@ curl -o kubeseal -L https://github.com/bitnami-labs/sealed-secrets/releases/down
 kubectl create namespace sealed-secrets
 mkdir sealed-secrets
 openssl req -x509 -nodes -newkey rsa:4096 -keyout sealed-secrets/sealed-secret.key -out sealed-secrets/sealed-secret.crt -subj "/CN=sealed-secret/O=sealed-secret"
+kubectl -n sealed-secrets create secret tls ss-default --cert=sealed-secrets/sealed-secret.crt --key=sealed-secrets/sealed-secret.key
+kubectl -n sealed-secrets label secret ss-default sealedsecrets.bitnami.com/sealed-secrets-key=active
 
 echo ">>> Cluster bootstrap done!"
