@@ -2,4 +2,4 @@
 resources:
 - ../gatekeeper
 - ../rbac
-- ../sealed-secrets
+#- ../sealed-secrets
