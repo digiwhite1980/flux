@@ -2,7 +2,7 @@ resources:
   #- ../../bases/istio
   #- ../../bases/open-policy-agent
   #- ../../bases/cert-manager
-  - ../../bases/cluster-default
+  - ../../../bases/cluster-default
 
 #configMapGenerator:
 #- name: istio
