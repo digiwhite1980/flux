@@ -148,7 +148,8 @@ spec:
           - name: KUBECONFIG
             value: /root/.kubectl/config
           args:
-          - --k8s-allow-namespace=team-1,flux-teams
+          - --k8s-allow-namespace=team-1  # Changed (removed defaullt)
+          - --k8s-default-namespace=team-1 # Added for default NS
           - --log-format=fmt
           - --ssh-keygen-dir=/var/fluxd/keygen
           - --ssh-keygen-format=RFC4716
