@@ -11,6 +11,21 @@ metadata:
     release: flux
     heritage: Helm
 ---
+# Added: We create a role binding in the target NS to the clusterRole but for the SA in the flux-teams NS refering to SA 
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: flux-team-1
+  namespace: team-1
+subjects:
+ - kind: Group
+   name: system:serviceaccounts:flux-teams:flux-team-1
+   apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: rbac-team
+  apiGroup: rbac.authorization.k8s.io
+---
 # Source: flux/templates/secret.yaml
 apiVersion: v1
 kind: Secret
@@ -23,7 +38,7 @@ type: Opaque
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flux-kube-config
+  name: flux-kube-config-team-1 # Changed
   namespace: flux-teams
 data:
   config: |
@@ -44,10 +59,10 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flux
+  name: flux-team-1 # Changed
   namespace: flux-teams
   labels:
-    app: flux
+    app: flux-team-1 # Changed
     chart: flux-1.5.0
     release: flux
     heritage: Helm
@@ -59,17 +74,17 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: flux
+    app: flux-team-1 # Changed
     release: flux
 ---
 # Source: flux/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flux
+  name: flux-team-1 # Changed
   namespace: flux-teams
   labels:
-    app: flux
+    app: flux-team-1 # Changed
     chart: flux-1.5.0
     release: flux
     heritage: Helm
@@ -77,20 +92,20 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flux
+      app: flux-team-1 # Changed
       release: flux
   template:
     metadata:
       annotations:
       labels:
-        app: flux
+        app: flux-team-1 # Changed
         release: flux
     spec:
       serviceAccountName: flux-team-1
       volumes:
       - name: kubedir
         configMap:
-          name: flux-kube-config
+          name: flux-kube-config-team-1 # Changed, See CM
       - name: git-key
         secret:
           secretName: deploy-flux-team-1 # changed, see secret
@@ -132,7 +147,6 @@ spec:
           args:
           - --k8s-allow-namespace=team-1,flux-teams
           - --log-format=fmt
-          
           - --ssh-keygen-dir=/var/fluxd/keygen
           - --ssh-keygen-format=RFC4716
           - --k8s-secret-name=deploy-flux-team-1 # changed: see secret
