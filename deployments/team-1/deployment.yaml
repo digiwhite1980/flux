@@ -1,6 +1,7 @@
 kind: Deployment
 metadata:
   name: alpine-deployment
+  namespace: team-1
 spec:
   selector:
     matchLabels:
