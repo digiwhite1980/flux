@@ -15,13 +15,13 @@ patches:
     - op: replace
       path: /metadata/labels/scp.gatekeeper	  
       value: restricted     
-- target: 
-    kind: ServiceAccount
-    namespace: flux-teams
-  patch: |-
-    - op: replace
-      path: /metadata/name
-      value: flux-team-1
+# - target: 
+#     kind: ServiceAccount
+#     namespace: flux-teams
+#   patch: |-
+#     - op: replace
+#       path: /metadata/name
+#       value: flux-team-1
 
 #- target:
 #    labelSelector: "type=gatekeeper-constraint"
