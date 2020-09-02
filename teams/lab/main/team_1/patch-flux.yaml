@@ -9,3 +9,6 @@ spec:
       path: "deployments/team_1"
     allowedNamespaces:
     - team-1
+    serviceAccount:
+      name: flux-team-1
+      

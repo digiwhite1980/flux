@@ -2,3 +2,12 @@ resources:
   - team_1
   - team_2
   - team_3
+
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/values/imageTag
+      value: 0.20.2
+  target:
+    kind: HelmRelease
+    name: opa

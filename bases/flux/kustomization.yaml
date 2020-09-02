@@ -1,3 +1,4 @@
 ---
 resources:
+- sa.yaml
 - flux.yaml

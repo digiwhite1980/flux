@@ -4,8 +4,10 @@
 git:
   url: git@github.com:digiwhite1980/flux
   branch: master
-  path: "clusters/lab,teams/lab"
+  path: "clusters/lab/main,teams/lab/main"
   pollInterval: 1m
+  # secretName: flux-ssh
+  # secretDataKey: deploy-key
 
 sync:
   state: secret
@@ -20,7 +22,7 @@ manifestGeneration: true
 
 image:
   repository: docker.io/fluxcd/flux
-  tag: 1.19.0
+  tag: 1.20.2
 
 # extraVolumeMounts:
 #   - name: istio-volume

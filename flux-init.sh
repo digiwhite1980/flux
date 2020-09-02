@@ -20,6 +20,8 @@ fi
 helm repo add fluxcd https://charts.fluxcd.io
 echo ">>> Installing Flux"
 kubectl create ns flux-system || true
+kubectl create ns flux-teams || true
+# kubectl create secret generic -n flux-system flux-ssh --from-file=deploy-key=keys/identity
 helm upgrade -i flux fluxcd/flux \
 --wait \
 --values flux-values.yaml \
@@ -29,12 +31,12 @@ helm upgrade -i flux fluxcd/flux \
 # https://github.com/fluxcd/helm-operator/tree/master/chart/helm-operator
 ###################################################################################
 echo ">>> Installing Helm Operator"
-kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/1.1.0/deploy/crds.yaml
+kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/1.2.0/deploy/crds.yaml
 helm upgrade -i helm-operator fluxcd/helm-operator \
 --wait \
---set git.ssh.secretName=flux-git-deploy \
 --set helm.versions=v3 \
---namespace flux-system
+--namespace flux-system # \
+# --set git.ssh.secretName=flux-ssh \
 
 echo ">>> GitHub deploy key"
 kubectl -n flux-system logs deployment/flux | grep identity.pub | cut -d '"' -f2

@@ -7,7 +7,7 @@ spec:
   chart:
     repository: https://charts.fluxcd.io
     name: flux
-    version: "1.3.0"
+    version: "1.20.2"
   values:  # https://hub.helm.sh/charts/fluxcd/flux
     git:
       url: PLACEHOLDER
@@ -21,7 +21,7 @@ spec:
       - PLACEHOLDER
     serviceAccount:
       create: false
-      name: team
+      name: PLACEHOLDER
     clusterRole:
       create: false
     registry:
@@ -33,4 +33,4 @@ spec:
     manifestGeneration: false
     image:
       repository: docker.io/fluxcd/flux
-      tag: 1.19.0
+      tag: 1.20.2

@@ -7,13 +7,22 @@ namespace: team-1
 patches:
 - target:
     kind: Namespace
+    labelSelector: namespace-type=team
   patch: |-
     - op: replace
       path: /metadata/name
       value: team-1
     - op: replace
       path: /metadata/labels/scp.gatekeeper	  
-      value: restricted
+      value: restricted     
+- target: 
+    kind: ServiceAccount
+    namespace: flux-teams
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-team-1
+
 #- target:
 #    labelSelector: "type=gatekeeper-constraint"
 #  patch: |-
