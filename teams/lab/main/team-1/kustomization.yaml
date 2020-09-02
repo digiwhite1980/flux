@@ -1,27 +1,36 @@
 resources:
   - ../../../../bases/team-default
   - ../../../../bases/flux
+  - rolebinding.yaml
 
-namespace: team-1
+#namespace: team-1
 
 patches:
 - target:
     kind: Namespace
-    labelSelector: namespace-type=team
   patch: |-
     - op: replace
       path: /metadata/name
       value: team-1
     - op: replace
       path: /metadata/labels/scp.gatekeeper	  
-      value: restricted     
-# - target: 
-#     kind: ServiceAccount
-#     namespace: flux-teams
-#   patch: |-
-#     - op: replace
-#       path: /metadata/name
-#       value: flux-team-1
+      value: restricted
+- target:
+    kind: RoleBinding
+  patch: |-
+    - op: replace
+      path: /subjects/0/name
+      value: team-1
+    - op: replace
+      path: /metadata/name 
+      value: team-1
+- target: 
+    kind: ServiceAccount
+    namespace: flux-teams
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-team-1
 
 #- target:
 #    labelSelector: "type=gatekeeper-constraint"
