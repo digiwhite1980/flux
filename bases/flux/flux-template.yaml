@@ -1,0 +1,165 @@
+---
+# Source: flux/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flux-team-1
+  namespace: flux-teams
+  labels:
+    app: flux
+    chart: flux-1.5.0
+    release: flux
+    heritage: Helm
+---
+# Source: flux/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: deploy-flux-team-1 # changed as every instance needs its own secret
+  namespace: flux-teams
+type: Opaque
+---
+# Source: flux/templates/kube.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-kube-config
+  namespace: flux-teams
+data:
+  config: |
+    apiVersion: v1
+    clusters: []
+    contexts:
+    - context:
+        cluster: ""
+        namespace: flux-teams
+        user: ""
+      name: default
+    current-context: default
+    kind: Config
+    preferences: {}
+    users: []
+---
+# Source: flux/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flux
+  namespace: flux-teams
+  labels:
+    app: flux
+    chart: flux-1.5.0
+    release: flux
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3030
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: flux
+    release: flux
+---
+# Source: flux/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flux
+  namespace: flux-teams
+  labels:
+    app: flux
+    chart: flux-1.5.0
+    release: flux
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flux
+      release: flux
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: flux
+        release: flux
+    spec:
+      serviceAccountName: flux-team-1
+      volumes:
+      - name: kubedir
+        configMap:
+          name: flux-kube-config
+      - name: git-key
+        secret:
+          secretName: deploy-flux-team-1 # changed, see secret
+          defaultMode: 0400
+      - name: git-keygen
+        emptyDir:
+          medium: Memory
+      containers:
+        - name: flux
+          image: "docker.io/fluxcd/flux:1.20.2"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - name: http
+            containerPort: 3030
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: 3030
+              path: /api/flux/v6/identity.pub
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              port: 3030
+              path: /api/flux/v6/identity.pub
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          volumeMounts:
+          - name: kubedir
+            mountPath: /root/.kubectl
+          - name: git-key
+            mountPath: /etc/fluxd/ssh
+            readOnly: true
+          - name: git-keygen
+            mountPath: /var/fluxd/keygen
+          env:
+          - name: KUBECONFIG
+            value: /root/.kubectl/config
+          args:
+          - --k8s-allow-namespace=team-1,flux-teams
+          - --log-format=fmt
+          
+          - --ssh-keygen-dir=/var/fluxd/keygen
+          - --ssh-keygen-format=RFC4716
+          - --k8s-secret-name=deploy-flux-team-1 # changed: see secret
+          - --memcached-hostname=flux-memcached
+          - --sync-state=secret
+          - --memcached-service=
+          - --git-url=git@github.com:digiwhite1980/flux
+          - --git-branch=master
+          - --git-path=deployments/team-1
+          - --git-readonly=true
+          - --git-user=Weave Flux
+          - --git-email=support@weave.works
+          - --git-verify-signatures=false
+          - --git-set-author=false
+          - --git-poll-interval=1m
+          - --git-timeout=20s
+          - --sync-interval=1m
+          - --git-ci-skip=false
+          - --automation-interval=5m
+          - --registry-rps=200
+          - --registry-burst=125
+          - --registry-trace=false
+          - --registry-disable-scanning
+          - --sync-garbage-collection=true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+      nodeSelector:
+        beta.kubernetes.io/os: linux
