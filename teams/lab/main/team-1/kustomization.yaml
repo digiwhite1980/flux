@@ -22,7 +22,7 @@ patches:
       path: /subjects/0/name
       value: team-1
     - op: replace
-      path: /metadata/name 
+      path: /metadata/namespace 
       value: team-1
 - target: 
     kind: ServiceAccount
