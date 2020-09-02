@@ -1,12 +1,12 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: flux
+  name: flux-team-1
 spec:
   values:
     git:
       url: git@github.com:digiwhite1980/flux
-      path: "deployments/team_1"
+      path: "deployments/team-1"
     allowedNamespaces:
     - team-1
     serviceAccount:
