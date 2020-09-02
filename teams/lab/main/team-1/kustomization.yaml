@@ -1,6 +1,6 @@
 resources:
   - ../../../../bases/team-default
-  - ../../../../bases/flux
+ # - ../../../../bases/flux
 
 #namespace: team-1
 
