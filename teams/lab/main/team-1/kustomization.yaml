@@ -1,9 +1,10 @@
 resources:
   - ../../../../bases/team-default
- # - ../../../../bases/flux
+  - ../../../../bases/flux
 
 #namespace: team-1
 
+# Namespace
 patches:
 - target:
     kind: Namespace
@@ -14,12 +15,98 @@ patches:
     - op: replace
       path: /metadata/labels/scp.gatekeeper	  
       value: restricted
+# Rolebinding for RBAC
 - target:
     kind: RoleBinding
+    name: rbac-team
   patch: |-
     - op: replace
       path: /metadata/namespace
       value: team-1
+#############################################################
+# FluxCD for teams
+#############################################################
+# Service account Flux
+- target:
+    kind: ServiceAccount
+    labelSelector: app=flux
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-team-1
+# Rolebinding Service Account
+- target:
+    kind: RoleBinding
+    labelSelector: app=flux
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-team-1
+    - op: replace
+      path: /metadata/namespace
+      value: team-1
+    - op: replace
+      path: /subjects/0/name
+      value: flux-team-1
+# Secret
+- target:
+    kind: Secret
+    name: deploy-flux
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: deploy-flux-team-1
+# ConfigMap
+- target:
+    kind: ConfigMap
+    name: flux-kube-config
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-kube-config-team-1
+# Service
+- target:
+    kind: Service
+    labelSelector: app=flux
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-team-1
+    - op: replace
+      path: /metadata/labels/app
+      value: flux-team-1
+    - op: replace
+      path: /spec/selector/app
+      value: flux-team-1     
+# Deployment
+- target:
+    kind: Deployment
+    labelSelector: app=flux
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: flux-team-1
+    - op: replace
+      path: /metadata/labels/app
+      value: flux-team-1
+    - op: replace
+      path: /spec/selector/matchLabels/app
+      value: flux-team-1
+    - op: replace
+      path: /spec/template/metadata/labels/app
+      value: flux-team-1
+    - op: replace
+      path: /spec/template/spec/serviceAccountName
+      value: flux-team-1
+    - op: replace
+      path: /spec/template/spec/volumes/0/configMap/name
+      value: flux-kube-config-team-1      
+    - op: replace
+      path: /spec/template/spec/volumes/1/secret/secretName
+      value: deploy-flux-team-1
+    - op: replace
+      path: /spec/template/spec/containers/0/args/0
+      value: --k8s-allow-namespace=team-1
 
 #- target:
 #    labelSelector: "type=gatekeeper-constraint"

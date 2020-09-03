@@ -1,4 +1,5 @@
 ---
 resources:
-- sa.yaml
-- flux.yaml
+- flux-template.yaml
+#- sa.yaml
+#- flux.yaml

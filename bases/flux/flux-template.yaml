@@ -3,8 +3,8 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: flux-team-1
-  namespace: flux-teams
+  name: flux
+  namespace: flux-teams # This value is fixed
   labels:
     app: flux
     chart: flux-1.5.0
@@ -15,15 +15,17 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: flux-team-1
-  namespace: team-1
+  name: flux
+  namespace: default
+  labels:
+    app: flux
 subjects:
 #  - kind: Group
 #    name: system:serviceaccounts:flux-teams:flux-team-1
 #    apiGroup: rbac.authorization.k8s.io
  - kind: ServiceAccount
-   name: flux-team-1
-   namespace: flux-teams
+   name: flux
+   namespace: flux-teams # Source namespace
 roleRef:
   kind: ClusterRole
   name: rbac-team
@@ -33,15 +35,17 @@ roleRef:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: deploy-flux-team-1 # changed as every instance needs its own secret
+  name: deploy-flux # changed as every instance needs its own secret
   namespace: flux-teams
+  labels:
+    app: flux
 type: Opaque
 ---
 # Source: flux/templates/kube.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flux-kube-config-team-1 # Changed
+  name: flux-kube-config # Changed
   namespace: flux-teams
 data:
   config: |
@@ -62,10 +66,10 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flux-team-1 # Changed
+  name: flux # Changed
   namespace: flux-teams
   labels:
-    app: flux-team-1 # Changed
+    app: flux # Changed
     chart: flux-1.5.0
     release: flux
     heritage: Helm
@@ -77,7 +81,7 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: flux-team-1 # Changed
+    app: flux # Changed
     release: flux
 ---
 # Source: flux/templates/deployment.yaml
@@ -87,7 +91,7 @@ metadata:
   name: flux-team-1 # Changed
   namespace: flux-teams
   labels:
-    app: flux-team-1 # Changed
+    app: flux # Changed
     chart: flux-1.5.0
     release: flux
     heritage: Helm
@@ -104,7 +108,7 @@ spec:
         app: flux-team-1 # Changed
         release: flux
     spec:
-      serviceAccountName: flux-team-1
+      serviceAccountName: flux-team-1 # Changed
       volumes:
       - name: kubedir
         configMap:
@@ -148,7 +152,7 @@ spec:
           - name: KUBECONFIG
             value: /root/.kubectl/config
           args:
-          - --k8s-allow-namespace=team-1  # Changed (removed defaullt)
+          - --k8s-allow-namespace=team-1,default  # Changed (removed defaullt)
           - --k8s-default-namespace=team-1 # Added for default NS
           - --log-format=fmt
           - --ssh-keygen-dir=/var/fluxd/keygen
