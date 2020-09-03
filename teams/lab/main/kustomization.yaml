@@ -1,6 +1,6 @@
 resources:
   - team-1
-  # - team_2
+  - team_2
   # - team_3
 
 patches:
