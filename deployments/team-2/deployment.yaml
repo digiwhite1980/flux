@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: alpine-deployment
+  namespace: team-2
 spec:
   selector:
     matchLabels:
