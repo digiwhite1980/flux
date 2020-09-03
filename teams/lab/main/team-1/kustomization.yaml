@@ -23,6 +23,14 @@ patches:
     - op: replace
       path: /metadata/namespace
       value: team-1
+# Service account for team
+- target:
+    kind: ServiceAccount
+    labelSelector: app=flux
+  patch: |-
+    - op: replace
+      path: /metadata/namespace
+      value: team-1
 #############################################################
 # FluxCD for teams
 #############################################################
