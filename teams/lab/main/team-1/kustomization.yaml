@@ -115,7 +115,15 @@ patches:
     - op: replace
       path: /spec/template/spec/containers/0/args/0
       value: --k8s-allow-namespace=team-1
-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/1
+      value: --k8s-default-namespace=team-1
+    - op: replace
+      path: /spec/template/spec/containers/0/args/5
+      value: --k8s-secret-name=deploy-flux-team-1
+    - op: replace
+      path: /spec/template/spec/containers/0/args/11
+      value: --git-path=deployments/team-1   
 #- target:
 #    labelSelector: "type=gatekeeper-constraint"
 #  patch: |-
