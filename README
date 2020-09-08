@@ -24,5 +24,3 @@ kubectl -n monitoring create secret generic grafana-admin-auth --from-literal=ad
 	| kubectl apply -f -
 
 
-# Webhook MS Teams:
-https://outlook.office.com/webhook/f3552910-9302-401c-bfd7-0dbd83fff3a1@7968b61d-2560-4bec-bff6-49278e52e06f/IncomingWebhook/2bda404eb4cc4695b5c5fbe7474d9646/53064d43-e963-4bea-bec8-9127aeb1d027
