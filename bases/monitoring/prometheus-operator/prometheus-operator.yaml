@@ -43,25 +43,25 @@ spec:
           repository: quay.io/prometheus/prometheus
           tag: v2.18.2
 
-    config:
-      receivers:
-      - name: prometheus-msteams
-        webhook_configs:
-        - url: "http://prometheus-msteams:2000/alertmanager"
-          send_resolved: true
-      route:
-        group_by:
-        - job
-        group_interval: 5m
-        group_wait: 30s
-        receiver: prometheus-msteams
-        repeat_interval: 12h
-        routes:
-        - match:
-            alertname: Watchdog
-          receiver: prometheus-msteams
-
     alertmanager:
+      enabled: true
+      config:
+        receivers:
+        - name: prometheus-msteams
+          webhook_configs:
+          - url: "http://prometheus-msteams:2000/alertmanager"
+            send_resolved: true
+        route:
+          group_by:
+          - job
+          group_interval: 5m
+          group_wait: 30s
+          receiver: prometheus-msteams
+          repeat_interval: 12h
+          routes:
+          - match:
+              alertname: Watchdog
+            receiver: prometheus-msteams
       alertmanagerSpec:
         image:
           repository: quay.io/prometheus/alertmanager
@@ -99,9 +99,4 @@ spec:
     prometheus-node-exporter:
       image:
         repository: quay.io/prometheus/node-exporter
-        tag: v1.0.1
-    
-    alertmanager:
-      enabled: true
-
-        
+        tag: v1.0.1      
