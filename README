@@ -1,0 +1,28 @@
+# Sealed secret
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout secrets/ss.key -out secrets/ss.pem
+
+kubectl create secret tls sealed-secrets-custom-key -n kube-system \
+  --cert=secrets/ss.pem \
+  --key=secrets/ss.key || true
+
+kubectl label secret sealed-secrets-custom-key sealedsecrets.bitnami.com/sealed-secrets-key=active -n kube-system || true
+
+helm repo add sealed-secrets https://kubernetes-charts.storage.googleapis.com
+
+helm upgrade \
+  sealed-secrets \
+  sealed-secrets/sealed-secrets \
+  --install \
+  --wait \
+  --namespace kube-system \
+  --version 1.10.3 \
+  --set "image.repository=quay.io/bitnami/sealed-secrets-controller" \
+  --set "image.tag=v0.12.4"
+
+kubectl -n monitoring create secret generic grafana-admin-auth --from-literal=admin-user=admin --from-literal=admin-password=password --dry-run -o json \
+	| ./kubeseal --format=yaml --cert=secrets/ss.pem --scope=strict --namespace=monitoring \
+	| kubectl apply -f -
+
+
+# Webhook MS Teams:
+https://outlook.office.com/webhook/f3552910-9302-401c-bfd7-0dbd83fff3a1@7968b61d-2560-4bec-bff6-49278e52e06f/IncomingWebhook/2bda404eb4cc4695b5c5fbe7474d9646/53064d43-e963-4bea-bec8-9127aeb1d027
