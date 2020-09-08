@@ -1,3 +1,4 @@
 sealed-secrets/*
 keys/*
 kubeseal
+secrets/*.key
