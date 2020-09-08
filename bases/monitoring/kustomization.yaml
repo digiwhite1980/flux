@@ -1,0 +1,6 @@
+---
+resources:
+  - namespace.yaml
+  - prometheus-operator
+
+namespace: monitoring
