@@ -1,6 +1,13 @@
 ---
 resources:
   - namespace.yaml
+  - grafana-admin.yaml
   - prometheus-operator
 
 namespace: monitoring
+
+############################################################################
+# In order to create the sealed secret for grafana we execute the folloing:
+# kubectl -n monitoring create secret generic grafana-admin-auth --from-literal=admin-user={user} --from-literal=admin-password={password} --dry-run -o json \
+#	| ../../kubeseal --format=yaml --cert=../../secrets/ss.pem --scope=strict --namespace=monitoring > grafana-admin.yaml
+############################################################################
