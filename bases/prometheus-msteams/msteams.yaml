@@ -5,6 +5,6 @@ metadata:
   name: prometheus-msteams
 spec:
   chart:
-    repository: https://github.com/bzon/prometheus-msteams/prometheus-msteams/chart
+    repository: https://github.com/bzon/prometheus-msteams/prometheus-msteams
     name: prometheus-msteams
     version: "v1.4.1"
