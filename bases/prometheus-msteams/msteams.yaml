@@ -7,4 +7,4 @@ spec:
   chart:
     repository: https://prometheus-msteams.github.io/helm-chart/
     name: prometheus-msteams
-    version: "1.4.1"
+    version: "0.5.1"
