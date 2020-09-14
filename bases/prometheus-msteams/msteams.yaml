@@ -1,0 +1,10 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: prometheus-msteams
+spec:
+  chart:
+    repository: https://github.com/bzon/prometheus-msteams
+    name: prometheus-msteams
+    version: "v1.4.1"
