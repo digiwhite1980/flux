@@ -4,6 +4,7 @@ kind: HelmRelease
 metadata:
   name: prometheus-msteams
 spec:
+  targetNamespace: monitoring
   chart:
     repository: https://prometheus-msteams.github.io/helm-chart/
     name: prometheus-msteams
