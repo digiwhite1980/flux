@@ -21,7 +21,25 @@ helm repo add fluxcd https://charts.fluxcd.io
 echo ">>> Installing Flux"
 kubectl create ns flux-system || true
 kubectl create ns flux-teams || true
-# kubectl create secret generic -n flux-system flux-ssh --from-file=deploy-key=keys/identity
+
+################################################################################################################################
+kubectl create secret generic -n flux-system flux-git-deploy --from-file=identity=secrets/flux-deploy-key
+kubectl create secret generic -n flux-system flux-git-deploy --from-file=identity=secrets/flux-deploy-key --dry-run -o json | \
+	./kubeseal --format=yaml --cert=secrets/ss.pem --scope=strict --namespace=flux-system | \
+	kubectl apply -f -
+
+kubectl label -n flux-system secret/flux-git-deploy app.kubernetes.io/managed-by=Helm	
+kubectl annotate -n flux-system secret/flux-git-deploy meta.helm.sh/release-name=flux
+kubectl annotate -n flux-system secret/flux-git-deploy meta.helm.sh/release-namespace=flux-system
+################################################################################################################################
+kubectl create secret generic -n flux-teams team-1-deploy --from-file=identity=secrets/flux-team-1 --dry-run -o json | \
+	./kubeseal --format=yaml --cert=secrets/ss.pem --scope=strict --namespace=flux-teams | \
+	kubectl apply -f -
+kubectl create secret generic -n flux-teams team-2-deploy --from-file=identity=secrets/flux-team-2 --dry-run -o json | \
+	./kubeseal --format=yaml --cert=secrets/ss.pem --scope=strict --namespace=flux-teams | \
+	kubectl apply -f -
+################################################################################################################################
+
 helm upgrade -i flux fluxcd/flux \
 --wait \
 --values flux-values.yaml \

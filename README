@@ -19,6 +19,9 @@ helm upgrade \
   --set "image.repository=quay.io/bitnami/sealed-secrets-controller" \
   --set "image.tag=v0.12.4"
 
+############################################################################
+# Create secret for grafana
+############################################################################
 kubectl -n monitoring create secret generic grafana-admin-auth --from-literal=admin-user=admin --from-literal=admin-password=password --dry-run -o json \
 	| ./kubeseal --format=yaml --cert=secrets/ss.pem --scope=strict --namespace=monitoring \
 	| kubectl apply -f -
