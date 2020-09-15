@@ -45,7 +45,7 @@ spec:
 
     alertmanager:
       enabled: true
-		  config:
+      config:
         global:
           smtp_smarthost: in-v3.mailjet.com:587
           smtp_from: alertmanager@dev.oranjewolk.ml
