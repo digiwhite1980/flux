@@ -45,6 +45,11 @@ spec:
 
     alertmanager:
       enabled: true
+      global:
+        smtp_smarthost: in-v3.mailjet.com:587
+        smtp_from: alertmanager@dev.oranjewolk.ml
+        smtp_auth_username: test
+        smtp_auth_password: test
       config:
         receivers:
         - name: prometheus-msteams
