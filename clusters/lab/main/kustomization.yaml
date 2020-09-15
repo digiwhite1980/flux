@@ -4,7 +4,7 @@ resources:
   #- ../../bases/cert-manager
   - ../../../bases/cluster-default
   - ../../../bases/monitoring
-  - ../../../bases/prometheus-msteams
+  #- ../../../bases/prometheus-msteams
 
 #configMapGenerator:
 #- name: istio
