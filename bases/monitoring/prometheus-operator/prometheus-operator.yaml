@@ -69,6 +69,7 @@ spec:
       #        alertname: Watchdog
       #      receiver: prometheus-msteams
       alertmanagerSpec:
+        logLevel: debug
         image:
           repository: quay.io/prometheus/alertmanager
           tag: v0.21.0
