@@ -48,9 +48,9 @@ spec:
       config:
         global:
           smtp_smarthost: in-v3.mailjet.com:587
-          smtp_from: alertmanager@dev.oranjewolk.ml
-          smtp_auth_username: test
-          smtp_auth_password: test
+          smtp_from: CHANGE_ME
+          smtp_auth_username: CHANGED_THROUGH_SEALEDSECRET
+          smtp_auth_password: CHANGED_THROUGH_SEALEDSECRET
       #config:
       #  receivers:
       #  - name: prometheus-msteams
@@ -69,7 +69,6 @@ spec:
       #        alertname: Watchdog
       #      receiver: prometheus-msteams
       alertmanagerSpec:
-        logLevel: debug
         image:
           repository: quay.io/prometheus/alertmanager
           tag: v0.21.0

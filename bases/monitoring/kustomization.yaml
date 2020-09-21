@@ -3,6 +3,7 @@ resources:
   - namespace.yaml
   - grafana-admin.yaml
   - prometheus-operator
+  - alertmanager.yaml
 
 namespace: monitoring
 
