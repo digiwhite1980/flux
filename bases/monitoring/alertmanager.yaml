@@ -12,4 +12,10 @@ spec:
       creationTimestamp: null
       name: alertmanager-monitoring-prometheus-oper-alertmanager
       namespace: monitoring
-
+      annotations:
+        helm.fluxcd.io/antecedent: monitoring:helmrelease/prometheus-operator
+      labels:
+        app: prometheus-operator-alertmanager
+        chart: prometheus-operator-9.3.1
+        heritage: Helm
+        release: monitoring-prometheus-operator
