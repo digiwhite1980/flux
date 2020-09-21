@@ -72,6 +72,7 @@ spec:
         image:
           repository: quay.io/prometheus/alertmanager
           tag: v0.21.0
+          useExistingSecret: true
 
     grafana:
       admin:
