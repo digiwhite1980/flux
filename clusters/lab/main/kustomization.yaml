@@ -3,7 +3,7 @@ resources:
   #- ../../bases/open-policy-agent
   #- ../../bases/cert-manager
   - ../../../bases/cluster-default
-  - ../../../bases/monitoring
+  #- ../../../bases/monitoring
   #- ../../../bases/prometheus-msteams
 
 #configMapGenerator:
