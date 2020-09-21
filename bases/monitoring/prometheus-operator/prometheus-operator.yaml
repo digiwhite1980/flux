@@ -52,9 +52,9 @@ spec:
           smtp_auth_username: CHANGED_THROUGH_SEALEDSECRET
           smtp_auth_password: CHANGED_THROUGH_SEALEDSECRET
         reveivers:
-        - name: 'ING-SRE-CLoud'
+        - name: 'Null'
           email_configs:
-          - to: 'ml-sre-tml-public-cloud@ing.com'
+          - to: CHANGED_THROUGH_SEALEDSECRET # Will be overwritten by alertmanager.yaml sealed secret
       #config:
       #  receivers:
       #  - name: prometheus-msteams
