@@ -51,6 +51,10 @@ spec:
           smtp_from: CHANGE_ME
           smtp_auth_username: CHANGED_THROUGH_SEALEDSECRET
           smtp_auth_password: CHANGED_THROUGH_SEALEDSECRET
+        reveivers:
+        - name: 'ING-SRE-CLoud'
+          email_configs:
+          - to: 'ml-sre-tml-public-cloud@ing.com'
       #config:
       #  receivers:
       #  - name: prometheus-msteams
