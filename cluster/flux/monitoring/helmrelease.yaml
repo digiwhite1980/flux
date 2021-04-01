@@ -16,3 +16,37 @@ spec:
         name: kube-state-metrics
         namespace: scp-system
   values:
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: scp-system
+spec:
+  interval: 2m
+  releaseName: kps
+  targetNamespace: monitoring
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 14.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-comunity
+        namespace: scp-system
+  values:
+    # disable scraping of managed components, they don't have a metrics endpoint
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeStateMetrics:
+      enabled: false  # install via separate HelmRelease file
+    nodeExporter:
+      enabled: false  # install via separate HelmRelease file
+    grafana:
+      enabled: false  # install via separate HelmRelease file
