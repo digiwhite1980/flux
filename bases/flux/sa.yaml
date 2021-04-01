@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  labels:
-    bases.flux/sa: placeholder
-  name: PLACEHOLDER
-  namespace: flux-teams

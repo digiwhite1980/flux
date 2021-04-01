@@ -1,5 +1,0 @@
----
-resources:
-- namespace.yaml
-- service-account.yaml
-- role-binding.yaml

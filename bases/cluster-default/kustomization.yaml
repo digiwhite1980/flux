@@ -1,6 +1,0 @@
----
-resources:
-- ../gatekeeper
-- ../rbac
-- ../system
-#- ../sealed-secrets

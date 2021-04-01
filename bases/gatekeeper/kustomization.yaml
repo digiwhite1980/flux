@@ -1,6 +1,0 @@
----
-resources:
-- gatekeeper.yaml
-- gatekeeper-syc_config.yaml
-- constraintTemplates/
-- constraints/constraints-restricted.yaml
