@@ -13,7 +13,7 @@ metadata:
   name: kube-state-metrics
   namespace: scp-system
 spec:
-  url: https://charts.helm.sh/stable
+  url: https://charts.bitnami.com/bitnami
   interval: 1m
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
