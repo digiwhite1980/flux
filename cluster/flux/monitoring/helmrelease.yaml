@@ -84,3 +84,13 @@ spec:
       datasources:
         enabled: true
         searchNamespace: ALL
+    plugins:
+    - grafana-piechart-panel
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
+      path: /*
+      pathType: ImplementationSpecific
+      hosts:
+      - localhost
